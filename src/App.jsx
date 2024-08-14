@@ -1,13 +1,11 @@
+import Study from "./study/study";
 
 function App() {
-
   return (
     <>
-      <div>
-        <h1>react</h1>
-      </div>
+      <Study />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
