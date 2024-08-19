@@ -1,0 +1,33 @@
+.feelingList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+.btn {
+    background-color: #e2e8f0;
+    display: block;
+    width: 200px;
+    padding: 10px 0;
+    cursor: pointer;
+    border: 0;
+}
+
+.btn:hover {
+    background-color: #6ee7b7;
+}
+
+.feelingList li:nth-of-type(n+2) {
+    margin-top: 10px;
+}
+
+.btn.on {
+    background-color:#93c5fd;
+}
+
+.feeling {
+    width: 180px;
+    padding: 30px 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+/**/
