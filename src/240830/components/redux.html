@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
+    <style>
+      .container {
+        border: 5px solid black;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .item {
+        border: 5px solid #f6866a;
+        height: 100px;
+        padding: 20px;
+        font-size: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <form onsubmit="text(event)">
+        <label for="text-input">
+          <input type="text" id="text-input" />
+        </label>
+        <button type="submit">눌러!</button>
+      </form>
+      <button type="button" onclick="rounded()">Rounded!</button>
+      <button type="button" onclick="circle()">Circle!</button>
+      <button type="button" onclick="rect()">Rect!</button>
+      <button type="button" onclick="red()">Red!</button>
+      <button type="button" onclick="green()">Green!</button>
+      <button type="button" onclick="blue()">Blue!</button>
+    </div>
+    <section class="container"></section>
+    <script>
+      function reducer(state = {}, action) {
+        switch (action.type) {
+          case "TEXT":
+            return { ...state, text: action.text };
+          case "ROUNDED":
+            return { ...state, rounded: action.rounded };
+          case "BORDER":
+            return { ...state, border: action.border };
+          default:
+            return {
+              text: "hello",
+              rounded: "0px",
+              border: "5px solid pink",
+            };
+        }
+      }
+      const store = Redux.createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__()
+      );
+
+      function text(e) {
+        e.preventDefault();
+        const $input = document.getElementById("text-input");
+        store.dispatch({
+          type: "TEXT",
+          text: $input.value !== "" ? $input.value : "hello",
+        });
+      }
+
+      function rounded() {
+        store.dispatch({ type: "ROUNDED", rounded: "10px" });
+      }
+
+      function circle() {
+        store.dispatch({ type: "ROUNDED", rounded: "20px" });
+      }
+
+      function rect() {
+        store.dispatch({ type: "ROUNDED", rounded: "0px" });
+      }
+
+      function red() {
+        store.dispatch({ type: "BORDER", border: "5px solid red" });
+      }
+
+      function green() {
+        store.dispatch({ type: "BORDER", border: "5px solid green" });
+      }
+
+      function blue() {
+        store.dispatch({ type: "BORDER", border: "5px solid blue" });
+      }
+
+      function article() {
+        const state = store.getState();
+        const articleArr = Array.from({ length: 6 });
+
+        const container = document.querySelector(".container");
+        container.innerHTML = "";
+        articleArr.forEach(() => {
+          const article = `
+                  <article style="border:${
+            state.border
+          }; border-radius: ${state.rounded}">
+                            ${state.text}
+                    </article>
+              `;
+          container.insertAdjacentHTML("beforeend", article);
+        });
+      }
+      store.subscribe(article);
+      article();
+    </script>
+  </body>
+</html>
